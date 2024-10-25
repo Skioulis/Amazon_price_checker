@@ -1,0 +1,1 @@
+# This is a project for checking a price at amazon and senting an email.

@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import sent_email as se
 
 practice_url = "https://appbrewery.github.io/instant_pot/"
 live_url = "https://www.amazon.com/dp/B075CYMYK6?psc=1&ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6"
@@ -16,4 +17,4 @@ result = soup.find(name="span", class_="aok-offscreen")
 
 scrapped_price = float(result.getText().replace('$', ''))
 
-print(scrapped_price)
+se.sent_email()
