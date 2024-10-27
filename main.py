@@ -36,10 +36,11 @@ item = soup.find(id="productTitle").get_text().strip(' ').replace("  ", '').spli
 target_price= 100
 
 if scrapped_price <target_price:
-    se.sent_email(f"{item} is below to target price: {target_price}$ at {scrapped_price}$")
-    print("its lower") # TODO: Delete
-else: print("not lower") # TODO: Delete
+    # se.sent_email(f"{item} is below to target price: {target_price}$ at {scrapped_price}$")
+    se.sent_mock_email(f"{item} is below to target price: {target_price}$ at {scrapped_price}$") # Delete
+    print("its lower") # Delete
+else: print("not lower") # Delete
 
 
 
-print("ok")
+print("ok") # Delete
