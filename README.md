@@ -6,3 +6,7 @@
 # PORT= the port
 # MY_EMAIL="yourmail@mail.com"
 # PASSWORD="your password or app passowrd"
+
+# Change the live url to the site you want  to track
+
+# change the TARGET_PRICE to make it work

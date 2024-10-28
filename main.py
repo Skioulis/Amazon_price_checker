@@ -2,8 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import sent_email as se
 
+TARGET_PRICE= 130
+
 practice_url = "https://appbrewery.github.io/instant_pot/"
-live_url = "https://www.amazon.com/dp/B075CYMYK6?psc=1&ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6"
+live_url = "https://www.amazon.com/dp/B08PQ2KWHS?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
 
 header = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -21,23 +23,27 @@ header = {
 }
 
 # Scraping
-response = requests.get(practice_url, headers=header)
-# response = requests.get(live_url, headers=header)
+# response = requests.get(practice_url, headers=header)
+response = requests.get(live_url, headers=header)
 response.raise_for_status()
 static_site = response.text
 
 soup = BeautifulSoup(static_site, 'html.parser')
 
-# getting the curent price
+# getting the current price
 result_price = soup.find(name="span", class_="aok-offscreen")
-scrapped_price = float(result_price.getText().replace('$', ''))
-item = soup.find(id="productTitle").get_text().strip(' ').replace("  ", '').split('\n')[0]
+scrapped_price = float(result_price.getText().replace('$', '').split()[0])
+item = soup.find(id="productTitle").get_text().strip(' ').replace("  ", '').split('\n')[0].split(",")[0]
 
-target_price= 100
 
-if scrapped_price <target_price:
-    # se.sent_email(f"{item} is below to target price: {target_price}$ at {scrapped_price}$")
-    se.sent_mock_email(f"{item} is below to target price: {target_price}$ at {scrapped_price}$") # Delete
+
+# print(item)
+
+
+
+if scrapped_price <TARGET_PRICE:
+    se.sent_email(f"{item} is below to target price: {TARGET_PRICE}$ at {scrapped_price}$")
+    # se.sent_mock_email(f"{item} is below to target price: {TARGET_PRICE}$ at {scrapped_price}$") # Delete
     print("its lower") # Delete
 else: print("not lower") # Delete
 
